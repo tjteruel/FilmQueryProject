@@ -14,7 +14,7 @@ public class FilmQueryApp {
 
 	public static void main(String[] args) {
 		FilmQueryApp app = new FilmQueryApp();
-		//app.test();
+		// app.test();
 		app.launch();
 	}
 
@@ -33,6 +33,7 @@ public class FilmQueryApp {
 
 	private void startUserInterface(Scanner input) {
 		System.out.println("\t\t Welcome to the Film Database!");
+		int userChoice = 0;
 		boolean menuLoop = true;
 		while (menuLoop) {
 			System.out.println("");
@@ -40,8 +41,19 @@ public class FilmQueryApp {
 			System.out.println("1. Look Up Film By ID Number. ");
 			System.out.println("2. Look Up Film By Key Word. ");
 			System.out.println("3. Exit. ");
-			
-		//TODO:fix scanner/userChoice
+
+			try {
+				userChoice = input.nextInt();
+				if (userChoice < 1 || userChoice > 3) {
+					System.out.println("please enter an integer between 1 and 3. ");
+					startUserInterface(input);
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid input ");
+				input.nextLine();
+				startUserInterface(input);
+			}
+
 			switch (userChoice) {
 			case 1:
 				System.out.print("Please enter the Film ID: ");
@@ -49,7 +61,7 @@ public class FilmQueryApp {
 				Film filmID = null;
 				try {
 					filmID = db.findFilmById(id);
-				} catch (SQLException e) {
+				} catch (SQLException e1) {
 					System.err.println("Please enter choices 1-3. ");
 				}
 				if (filmID == null) {
@@ -60,16 +72,17 @@ public class FilmQueryApp {
 				break;
 			case 2:
 				System.out.print("Please enter the keyword: ");
-				String keyword = input.nextLine();
-				List<Film> film = db.findFilmByKeyword(keyword);
-				System.out.println(film);
+				String keyword = input.next();
+				List<Film> films = db.findFilmByKeyword(keyword);
+				System.out.println(films + "\n");
 				break;
 			case 3:
 				menuLoop = false;
-				System.out.println("/t Thank You For Using The Database!");
+				System.out.println("\t Thank You For Using The Database!");
 				break;
 			default:
 				System.out.println("Please enter an option of 1-3. ");
+				break;
 			}
 		}
 	}

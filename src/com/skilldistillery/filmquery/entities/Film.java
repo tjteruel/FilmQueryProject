@@ -15,15 +15,27 @@ public class Film {
 	private String rating;
 	private String specialFeatures;
 	private List <Actor> actors;
+	private String language;
 	
 	public Film(){}
 	
-	public Film(String title, Integer releaseYear, String rating, String description) {
+	public Film(String title, Integer releaseYear, String rating, String description, String language,
+			List<Actor> actors) {
 		super();
 		this.title = title;
 		this.releaseYear = releaseYear;
 		this.rating = rating;
 		this.description = description;
+		this.language = language;	
+		}
+	
+	public Film(String title, Integer releaseYear, String rating, String description, String language) {
+		super();
+		this.title = title;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+		this.description = description;
+		this.language = language;
 	}
 	
 	public Film(int id, String title, String description, Integer releaseYear, int languageId, int rentalDuration,
@@ -41,6 +53,8 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 		this.actors = actors;
 	}
+
+
 
 
 
@@ -213,6 +227,14 @@ public class Film {
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	
 	
