@@ -3,7 +3,6 @@ package com.skilldistillery.filmquery.entities;
 import java.util.List;
 
 public class Film {
-	//if it can be null in the database, it will be a wrapper class
 	private int id;
 	private String title;
 	private String description;
@@ -19,6 +18,7 @@ public class Film {
 	
 	public Film(){}
 	
+	
 	public Film(String title, Integer releaseYear, String rating, String description, String language,
 			List<Actor> actors) {
 		super();
@@ -27,6 +27,7 @@ public class Film {
 		this.rating = rating;
 		this.description = description;
 		this.language = language;	
+		this.actors = actors;
 		}
 	
 	public Film(String title, Integer releaseYear, String rating, String description, String language) {
@@ -38,7 +39,7 @@ public class Film {
 		this.language = language;
 	}
 	
-	public Film(int id, String title, String description, Integer releaseYear, int languageId, int rentalDuration,
+	public Film(int id, String title, String description, Integer releaseYear, int languageId, String language, int rentalDuration,
 			double rentalRate, double replacementCost, String rating, String specialFeatures, List<Actor> actors) {
 		super();
 		this.id = id;
@@ -46,6 +47,7 @@ public class Film {
 		this.description = description;
 		this.releaseYear = releaseYear;
 		this.languageId = languageId;
+		this.language = language;
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.replacementCost = replacementCost;
@@ -131,29 +133,31 @@ public class Film {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Film [id=");
+		builder.append("Film ID: ");
 		builder.append(id);
-		builder.append(", title=");
+		builder.append("\nTitle: ");
 		builder.append(title);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", releaseYear=");
+		builder.append("\nRelease Year: ");
 		builder.append(releaseYear);
-		builder.append(", languageId=");
-		builder.append(languageId);
-		builder.append(", rentalDuration=");
-		builder.append(rentalDuration);
-		builder.append(", rentalRate=");
-		builder.append(rentalRate);
-		builder.append(", replacementCost=");
-		builder.append(replacementCost);
-		builder.append(", rating=");
+		builder.append("\nRating: ");
 		builder.append(rating);
-		builder.append(", specialFeatures=");
-		builder.append(specialFeatures);
-		builder.append(", actors=");
+		builder.append("\nLanguage: ");
+		builder.append(language);
+		builder.append("\nDescription: ");
+		builder.append(description);
+		builder.append("\nCast: ");
 		builder.append(actors);
-		builder.append("]");
+//		builder.append(", languageId=");
+//		builder.append(languageId);
+//		builder.append(", rentalDuration=");
+//		builder.append(rentalDuration);
+//		builder.append(", rentalRate=");
+//		builder.append(rentalRate);
+//		builder.append(", replacementCost=");
+//		builder.append(replacementCost);
+//		builder.append(", specialFeatures=");
+//		builder.append(specialFeatures);
+//		builder.append("]");
 		return builder.toString();
 	}
 	
@@ -164,6 +168,7 @@ public class Film {
 		result = prime * result + ((actors == null) ? 0 : actors.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((language == null) ? 0 : language.hashCode());
 		result = prime * result + languageId;
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + ((releaseYear == null) ? 0 : releaseYear.hashCode());
@@ -197,6 +202,11 @@ public class Film {
 		} else if (!description.equals(other.description))
 			return false;
 		if (id != other.id)
+			return false;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
 			return false;
 		if (languageId != other.languageId)
 			return false;
@@ -236,14 +246,5 @@ public class Film {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	
-	
-	
-	 //generate getters and setters and tostring
-	
-	//convert to maven and copy POM file from JDBC/dependency section!!!!!!!!!!!
-	
-	
-	
-	
+		
 }

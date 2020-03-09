@@ -2,6 +2,8 @@ package com.skilldistillery.filmquery.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +25,13 @@ class DatabaseAccessTests {
 
   @Test
   void test_getFilmById_with_invalid_id_returns_null() {
-    Film f = db.findFilmById(-42);
+    Film f = null;
+	try {
+		f = db.findFilmById(-42);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     assertNull(f);
   }
 

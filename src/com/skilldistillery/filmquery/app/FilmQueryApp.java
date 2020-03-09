@@ -18,11 +18,6 @@ public class FilmQueryApp {
 		app.launch();
 	}
 
-//	private void test() throws SQLException {
-//		Film film = db.findFilmById(1);
-//		System.out.println(film);
-//	}
-
 	private void launch() {
 		Scanner input = new Scanner(System.in);
 
@@ -65,7 +60,7 @@ public class FilmQueryApp {
 					System.err.println("Please enter choices 1-3. ");
 				}
 				if (filmID == null) {
-					System.err.println("Film not found.");
+					System.out.println("\tFilm not found.");
 				} else {
 					System.out.println(filmID);
 				}
@@ -74,7 +69,18 @@ public class FilmQueryApp {
 				System.out.print("Please enter the keyword: ");
 				String keyword = input.next();
 				List<Film> films = db.findFilmByKeyword(keyword);
-				System.out.println(films + "\n");
+				if (films.size() > 0) {
+					for (Film film : films) {
+						System.out.println("Title: " + film.getTitle());
+						System.out.println("Release Year: " + film.getReleaseYear());
+						System.out.println("Rating: " + film.getRating());					
+						System.out.println("Language: " + film.getLanguage());					
+						System.out.println("Description: " + film.getDescription());	
+						System.out.println("Cast: " + film.getActors());
+						System.out.println("");}
+				} else {
+					System.out.println("\tNo Films Found With That Keyword. ");
+				}
 				break;
 			case 3:
 				menuLoop = false;

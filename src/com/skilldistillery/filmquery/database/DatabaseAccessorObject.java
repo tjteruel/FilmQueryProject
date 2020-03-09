@@ -40,7 +40,18 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setReleaseYear(rs.getInt("release_year"));
 				film.setRating(rs.getString("rating"));
 				film.setDescription(rs.getString("description"));
+				film.setId(rs.getInt("id"));
+				film.setLanguageId(rs.getInt("language_id"));
+				film.setRating(rs.getString("rating"));
+				film.setReleaseYear(rs.getInt("release_year"));
+				film.setRentalDuration(rs.getInt("rental_duration"));
+				film.setRentalRate(rs.getDouble("rental_rate"));
+				film.setReplacementCost(rs.getDouble("replacement_cost"));
+				film.setSpecialFeatures(rs.getString("special_features"));
+				film.setActors(findActorsByFilmId(filmId));
+				film.setLanguage(findLanguageById(filmId));
 			}
+			
 			rs.close();
 			pst.close();
 			conn.close();
@@ -65,14 +76,20 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			pst.setString(2, searchWord);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				Integer filmId = rs.getInt("id");
-				String title = rs.getString("title");
-				Integer releaseYear = rs.getInt("release_year");
-				String rating = rs.getString("rating");
-				String description = rs.getString("description");
-				String language = findLanguageById(filmId);
-				List<Actor> actors = findActorsByFilmId(filmId);
-				films.add(new Film(title, releaseYear, rating, description, language, actors));
+				Film film = new Film();
+				film.setId(rs.getInt("id"));
+				film.setTitle(rs.getString("title"));
+				film.setDescription(rs.getString("description"));
+				film.setReleaseYear(rs.getInt("release_year"));
+				film.setLanguageId(rs.getInt("language_id"));
+				film.setRentalDuration(rs.getInt("rental_duration"));
+				film.setRentalRate(rs.getDouble("rental_rate"));
+				film.setReplacementCost(rs.getDouble("replacement_cost"));
+				film.setRating(rs.getString("rating"));
+				film.setSpecialFeatures(rs.getString("special_features"));
+				film.setActors(findActorsByFilmId(film.getId()));
+				film.setLanguage(findLanguageById(film.getId()));
+				films.add(film);
 			}
 			rs.close();
 			pst.close();
